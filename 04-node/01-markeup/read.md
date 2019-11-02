@@ -6,84 +6,7 @@
 
 ## 基础类型
 
-- 布尔类型 **boolean**
-    ```js
-        let isDone: boolean = false;
-    ```
-- 数字类型 **number**
-    ```js
-        let myInt: number = 123
-    ```
-- 字符串类型 **string**
-    ```js
-        let myString: string = 'abc'
-    ```
-- 数组类型 **Array**
-  + 在元素类型后面加 **[]**
-    ```js
-        let list: number[] = [1,2,3]
-    ```
-  + 数组泛型
-    ```js
-      let list: Array<number> = [1, 2, 3]
-    ```
-- 元组 **Tuple**
-  + 元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同
-  ```js
-    let x: [string, number]
-    x = ['hello', 10]
-  ```
-- 枚举 **enum**
-  + 为一直数组赋值，默认从0开始
-  + 可指定值，数字会进行索引排序
-  + 可以用枚举的值得到枚举的名字
-  ```js
-    enum Color {Red = 1, Green, Blue}
-    let c: Color = Color.Green;
-    // 枚举数字类型的自动排序
-    let colorName: string = Color[2]
-    console.log(Color.Blue)// 3
-    console.log(colorName) // Green
-  ```
-- 任意类型 **any**
-  + 不需要进行类型检查，直接通过编译阶段
-
-- 空值 **void**
-  + 当一个函数没有返回值得时候用void
-- **null** 和 **undefined**
-  + 默认情况下null和undefined是所有类型的子类型。 就是说你可以把null和undefined赋值给number类型的变量
-- **never**
-  + never类型是那些总是会抛出异常
-  + 根本就不会有返回值的函数表达式
-  + 箭头函数表达式的返回值类型
-  + 变量也可能是never类型，当它们被永不为真的类型保护所约束时（声明未指定类型）
-- 类型断言
-  + 类型转换 as 和 <类型>值 两种形式，在使用jsx时只能使用as
-  ```js
-    // <类型>值
-    let someValue: any = "this is a string";
-    let strLength: number = (<string>someValue).length;
-    // as
-    let someValue: any = "this is a string";
-    let strLength: number = (someValue as string).length;
-  ```
-## 变量声明
-
-- var、let、const
-  + 使用let 和const
-
-### 属性重命名
-
-- 给属性命名
-  + `let { a: newName1, b: newName2 } = o;` 这里的语法开始变得混乱。 你可以将 a: newName1 读做 "a 作为 newName1"。 方向是从左到右，好像你写成了以下样子
-  ```ts
-  let newName1 = o.a;
-  let newName2 = o.b;
-  ```
-  比较困惑，这里的冒号不在指类型，如果需要指定类型可以这样做
-  ```ts
-    let {a, b}: {a: string, b: number} = o;
-  ```
+## 变量声明 
 
 ## 类
 
@@ -105,7 +28,7 @@ js 通过构造函数实现类，原型链实现继承，es6 迎来了 **class**
 ### 访问修饰符
 
 - public
-    + 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 public 的
+  + 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 public 的
 ```js
     class Animal {
       public name;
@@ -118,8 +41,8 @@ js 通过构造函数实现类，原型链实现继承，es6 迎来了 **class**
 ```
 
 - private
-    + 修饰的属性或方法是私有的，不能在声明它的类的外部访问
-```js
+  + 修饰的属性或方法是私有的，不能在声明它的类的外部访问
+```
     class Animal {
       private name;
       public constructor (name) {
@@ -133,12 +56,11 @@ js 通过构造函数实现类，原型链实现继承，es6 迎来了 **class**
         console.log(this.name)//无法访问子类私有属性
       }
     }
-
 ```
 - protected
     + 饰的属性或方法是受保护的，它和 private 类似，区别是它在子类中也是允许被访问的
     
-```js
+```
     class Animal {
       protected name;
       public constructor (name) {
@@ -155,12 +77,12 @@ js 通过构造函数实现类，原型链实现继承，es6 迎来了 **class**
 ```
 
 - readonly
-    +  只读属性必须在声明时或构造函数里被初始化
+  +  只读属性必须在声明时或构造函数里被初始化
     
 - 存取器
-    + 使用 getter 和 setter 可以改变属性的赋值和读取行为
+  + 使用 getter 和 setter 可以改变属性的赋值和读取行为
 
-```js
+```
     class Animal {
         constructor(name) {
             this.name = name;
@@ -177,24 +99,6 @@ js 通过构造函数实现类，原型链实现继承，es6 迎来了 **class**
     a.name = 'Tom'; // setter: Tom
     console.log(a.name); // Jack
 ```
-- 静态属性
-  + 使用**static**修饰属性
-  ```ts
-  class Grid {
-  static origin = {x: 0, y: 0};
-    calculateDistanceFromOrigin(point: {x: number; y: number;}) {
-        let xDist = (point.x - Grid.origin.x);
-        let yDist = (point.y - Grid.origin.y);
-        return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
-    }
-    constructor (public scale: number) { }
-  }
-  let grid1 = new Grid(1.0);  // 1x scale
-  let grid2 = new Grid(5.0);  // 5x scale
-
-  console.log(grid1.calculateDistanceFromOrigin({x: 10, y: 10}));
-  console.log(grid2.calculateDistanceFromOrigin({x: 10, y: 10}));
-  ```
 
 ### 抽象类
 
@@ -204,7 +108,7 @@ abstract 用于定义抽象类和其中的抽象方法
     + 抽象类是不允许被实例化的 （不能使用new）
     + 抽象类中抽象方法必须由子类实现
 
-```js
+```
     abstract class Animal {
       protected name;
       public constructor (name) {
@@ -237,7 +141,7 @@ ts 用接口定义对象的类型
 
 ### 例子
 
-```js
+```
     // 定义接口
     interface IPersion {
         name: string,
@@ -252,7 +156,7 @@ ts 用接口定义对象的类型
 
 做为函数的参数
 
-```js
+```
    interface IPersion {
      name: string
     }
@@ -271,7 +175,7 @@ ts 用接口定义对象的类型
     + 符号：**?**
     + 对可能存在的属性进行预定义
     + 捕获引用不存在的属性时报错
-```js
+```
   interface IPersion {
         name: string,
         age?: number
@@ -279,7 +183,7 @@ ts 用接口定义对象的类型
 ```
 - 任意属性
     + 有时候我们希望一个接口允许有任意的属性
-```ts
+```
     interface IPerson {
       name: string
       age: string
@@ -290,7 +194,7 @@ ts 用接口定义对象的类型
 
 需要注意的是，**一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集**
 
-```js
+```
 interface IPerson {
   name: string
   // 报错：number 不是string类型的子集
@@ -303,7 +207,7 @@ interface IPerson {
 - 只读属性
     + **readonly**
     + 只在该对象进行初始化的时候赋值，其他情况赋值会报错
-```js
+```
    interface IPerson {
       readonly id: number
       name: string
@@ -325,7 +229,7 @@ interface IPerson {
 
 - 例子
 
-```ts
+```
     interface SearchFunc {
       (source: string, subString: string): boolean;
     }
@@ -343,7 +247,7 @@ interface IPerson {
 
 列:
 
-```ts
+```
 interface IAnimal {
   name: string
   age: number,
@@ -366,12 +270,11 @@ class Cat implements IAnimal {
 
 接口描述了类的公共部分，不会帮你检查私有成员
 
-
 ### 继承接口
 
 和类一样，接口也可以实现相互继承,使用**extends**关键字即可实现
 
-```ts
+```js
     interface IAnimal {
       name: string
       age: number,
@@ -394,7 +297,7 @@ class Cat implements IAnimal {
 
 接口可以描述函数、对象的方法或者对象的属性，有时希望一个对象同时具有上面提到多种类型，比如一个对象可以当做函数使用，同时又具有属性和方法- 混合接口
 
-```ts
+```
     interface Counter {
       (start: number): string;
       interval: number;
@@ -403,7 +306,7 @@ class Cat implements IAnimal {
 ```
 声明一个接口，如果只有(start: number):string一个成员，那么这个接口就是函数接口，同时还具有其他两个成员，可以用来描述对象的属性和方法，这样就构成了一个混合接口
 
-```ts
+```
     // 创建函数，返回值是Counter类型
     function getCounter(): Counter {
       let counter = <Counter>function (start: number) { };
@@ -425,7 +328,7 @@ class Cat implements IAnimal {
 
 当接口继承一个类类型时，接口同样会继承到类的private和protected成员，这个接口只能被这个类或子类实现，（有时候很有用，代码只在子类拥有特定属性时起作用）
 
-```ts
+```
     class Control {
         private state: any;
     }
@@ -463,7 +366,7 @@ class Cat implements IAnimal {
 
 对象是包含一组键值对的实例。 值可以是标量、函数、数组、对象等，如下实例
 
-```ts
+```
     let object_name = { 
         key1: "value1", // 标量
         key2: "value",  
@@ -476,7 +379,7 @@ class Cat implements IAnimal {
 
 对象实例
 
-```ts
+```
     var sites = { 
        site1:"Runoob", 
        site2:"Google" 
@@ -490,7 +393,7 @@ class Cat implements IAnimal {
 
 - 在对象中添加方法，ts是不允许的，对象必须是特定类型的实例，所以提前写好方法，并且赋值默认值，可进行修改
 
-```ts
+```
     let person = {
       name: 'Louis',
       age: 34,
@@ -515,7 +418,7 @@ class Cat implements IAnimal {
 
 使用 **namespace**关键字
 
-```ts
+```
     namespace species {
       export interface Animal {
         run(name:string):string
@@ -543,7 +446,7 @@ class Cat implements IAnimal {
 
 在名为utils.js 的文件下声明一个命名空间
 
-```ts
+```
 // utils.ts
 namespace Utils {
     export interface IPerson {
@@ -555,7 +458,7 @@ namespace Utils {
 ```
 通过 *reference**注释引用命名空间 
 
-```ts
+```
     /// <reference path="utils.ts" />
     const me: Utils.IPerson = {
         name: 'funlee',
@@ -566,7 +469,7 @@ namespace Utils {
 
 也可以用**import**
 
-```ts
+```
     import './utils'
     
     const me: Utils.IPerson = {
@@ -580,7 +483,7 @@ namespace Utils {
 
 - 给常用对象取别名，简化命名空间操作
 
-```ts
+```
     namespace species {
       export interface Animal {
         run(name:string):string
@@ -601,106 +504,6 @@ namespace Utils {
 - 声明文件的结构应该与代码文件结构保持一致
 
 ## 泛型
-
-**作用**：使用泛型重用组件
-
-### 案例 hello world
-
-```ts
-  function identity<T>(arg: T): T {
-    return arg;
-  }
-```
-**案例分析**： 我们给identity添加了类型变量T。 T帮助我们捕获用户传入的类型（比如：number），之后我们就可以使用这个类型。 之后我们再次使用了 T当做返回值类型。现在我们可以知道参数类型与返回值类型是相同的了。 这允许我们跟踪函数里使用的类型的信息
-
-**使用**： 
-```ts
-  // 第1种方法
-  let output = identity<string>("myString");  // type of output will be 'string'
-  // 第2种，使用比较普遍，利用编译器类型推论
-  let output2 = identity("myString");  // type of output will be 'string'
-
-```
-- T类型数组
-  + 可以传入任意类型的数组
-  ```ts
-    function loggingIdentity<T>(arg: T[]): T[] {
-        console.log(arg.length); 
-        return arg;
-    }
-  ```
-
-### 泛型类型
-
-- 泛型函数
-  + 泛型函数与普通函数区别，在函数前加类型
-  ```ts
-    // 可以使用不同参数T的名字，只要数量和使用方式对应上就行
-    function identity<T>(arg: T): T {
-      return arg;
-    }
-    let myIdentity: <T>(arg: T) => T = identity;
-  ```
-- 泛型接口
-  + 接口方法接收任意类型T，返回值T
-  ```ts
-    interface GenericIdentityFn<T> {
-      (arg: T): T;
-    }
-
-    function identity<T>(arg: T): T {
-      return arg;
-    }
-    let myIdentity: GenericIdentityFn<number> = identity;
-  ```
-- 泛型类
-  + 泛型类看上去与泛型接口差不多。 泛型类使用（ <>）括起泛型类型，跟在类名后面
-  + 泛型类只能是实例部分，静态部分不能使用泛型类型，因为静态属性不需要实例化
-  ```ts
-    class GenericNumber<T> {
-      zeroValue: T;
-      add: (x: T, y: T) => T;
-    }
-    let myGenericNumber = new GenericNumber<number>();
-    myGenericNumber.zeroValue = 0;
-    myGenericNumber.add = function(x, y) { return x + y; };
-  ```
-### 泛型约束
-
-**定义**：使用这个接口和extends 关键字实现约束
-```ts
-interface Lengthwise {
-    length: number;
-}
-function loggingIdentity<T extends Lengthwise>(arg: T): T {
-    console.log(arg.length); 
-    return arg;
-}
-// 现在这个泛型函数被定义了约束，因此它不再是适用于任意类型
-loggingIdentity(3);  // Error, number doesn't have a .length property
-// 我们需要传入符合约束类型的值，必须包含必须的属性：
-loggingIdentity({length: 10, value: 3});
-```
-### 在泛型约束中使用类型参数
- 
-类型参数**getProperty**被 **x**类型所约束，通过属性名从对象里获取这个属性，并且要确保这个属性存在对象obj上
-```ts
-function getProperty(obj: T, key: K) {
-    return obj[key];
-}
-let x = { a: 1, b: 2, c: 3, d: 4 };
-getProperty(x, "a"); // okay
-getProperty(x, "m"); // error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
-
-```
-### 在泛型里使用类类型
-
-在TypeScript使用泛型创建工厂函数时，需要引用构造函数的类类型
-```ts
-function create<T>(c: {new(): T; }): T {
-    return new c();
-}
-```
 
 ## 枚举
 

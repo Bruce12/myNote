@@ -1,0 +1,17 @@
+{
+  "name": "01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "markdownCreate.js",
+  "dependencies": {
+    "_marked@0.7.0@marked": "^0.7.0",
+    "highlight.js": "^9.15.10",
+    "marked": "^0.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
