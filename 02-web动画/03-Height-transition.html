@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Height transition</title>
+</head>
+<body>
+  <div class="trigger">
+    鼠标移入快点啊dffaa
+    <div class="el">content</div>
+  </div>
+  <style>
+    .trigger {
+      background: #ddd;
+    }
+    .el {
+      transition: max-height .5s;
+      overflow: hidden;
+      max-height: 0;
+    }
+    .trigger:hover > .el {
+      max-height: var(--max-height);
+    }
+  </style>
+  <script>
+    var el = document.querySelector('.el')
+    var Height = el.scrollHeight
+    el.style.setProperty('--max-height', Height + 'px')
+  </script>
+</body>
+</html>
