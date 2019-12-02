@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>popout menu</title>
+</head>
+<body>
+  <div class="reference" tabindex="0">
+    <div class="popout-menu">
+      移入的显示内容
+    </div>
+  </div>
+</body>
+<style>
+  .reference {
+    position: relative;
+    background: tomato;
+    width: 100px;
+    height: 100px;
+  }
+  .popout-menu {
+    position: absolute;
+    visibility: hidden;
+    left: 100%;
+    background: #333;
+    color: white;
+    padding: 15px;
+    white-space:nowrap;
+  }
+  /*
+    :focus-within:表示一个元素获得焦点，或，该元素的后代元素获得焦点。划重点，它或它的后代获得焦点
+  */
+  .reference:hover > .popout-menu,
+  .reference:focus > .popout-menu,
+  .reference:focus-within > .popout-menu {
+    visibility: visible;
+  }
+</style>
+</html>
