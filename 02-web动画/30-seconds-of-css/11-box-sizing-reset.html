@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>box sizing reset</title>
+</head>
+<body>
+  <script>
+    let doniu = ['#/supplierDemand', '#/cargoStandard', '#/marketDemand', 
+                  '#/marketList', ' #/shipperManage', '#/shipperFollowLog', '#/ownerPayRecord',
+                  '#/salesManager', '#/carNumber', '#/outOrder', '#/merchandiser', '#/agencysell',
+                  '#/settleLoans', ' #/agencysellPlan'
+                ]
+    const routers = {
+      supplyaudit: {
+        path: '/products',
+        meta: {
+          title: '货品审核'
+        }
+      },
+      prodetail: {
+        path: '/products/detail/:id',
+        meta: {
+          title: '货品详情',
+          parent: 'supplyaudit'
+        }
+      },
+      pushtasklist: {
+        // path: '/pushtasklist?:id',
+        path: '/pushtasklist',
+        meta: {
+          title: '推送任务管理'
+        }
+      },
+      purchaseauth: {
+        path: '/purchaseauth',
+        meta: {
+          title: '实地认证审核'
+        }
+      },
+      feedback: {
+        path: '/feedback',
+        meta: {
+          title: '用户反馈管理'
+        }
+      },
+      fbstatistics: {
+        path: '/fbstatistics',
+        meta: {
+          title: '用户反馈统计'
+        }
+      },
+      // 企业认证列表
+
+      enterpriseauth: {
+        path: '/enterpriseauth',
+        meta: {
+          title: '企业认证管理'
+        }
+      },
+      // 新增企业认证
+
+      enterpriseadd: {
+        path: '/enterpriseauth/add',
+        meta: {
+          title: '新增企业认证',
+          parent: 'enterpriseauth'
+        }
+      },
+      // 企业认证详情
+
+      enterprisedetail: {
+        path: '/enterpriseauth/detail/:id',
+        meta: {
+          title: '企业认证详情',
+          parent: 'enterpriseauth'
+        }
+      },
+      workorder: {
+        path: '/workorder',
+        meta: {
+          title: '工单管理'
+        }
+      },
+      workorderdetail: {
+        path: '/workorder/detail/:id',
+        meta: {
+          title: '工单管理详情',
+          parent: 'workorder'
+        }
+      },
+      agricultural: {
+        path: '/agricultural',
+        meta: {
+          title: '农资货品审核'
+        }
+      },
+      agriculturaldetail: {
+        path: '/agricultural/detail/:id',
+        meta: {
+          title: '农资货品审核详情',
+          parent: 'agricultural'
+        }
+      },
+      originShortComment: {
+        path: '/originShortComment',
+        meta: {
+          title: '产地短评管理'
+        }
+      },
+      messenger: {
+        // path: '/messenger?:id',
+        path: '/messenger',
+        meta: {
+          title: '官方信息员管理'
+        }
+      },
+      // 行情内参审核
+
+      internalRef: {
+        path: '/internal_ref',
+        meta: {
+          title: '行情内参审核'
+        }
+      },
+      // 迁移原crm
+
+      callEmployee: {
+        path: '/market/callEmployee',
+        meta: {
+          title: '呼叫工作台'
+        }
+      },
+      callManager: {
+        path: '/market/callManager',
+        meta: {
+          title: '呼叫任务管理'
+        }
+      },
+      callMessage: {
+        path: '/market/message',
+        // path: '/market/message?id',
+        meta: {
+          title: '短信任务提交'
+        }
+      },
+      taskDetailManager: {
+        path: '/market/manager/taskDetail/:id/:staffId',
+        meta: {
+          title: '呼叫任务明细',
+          parent: 'callManager'
+        }
+      },
+      callOrigin: {
+        path: '/market/callOrigin',
+        meta: {
+          title: '电话营销来源历史',
+          parent: 'callManager'
+        }
+      },
+      callStatistics: {
+        path: '/market/callStatistics',
+        meta: {
+          title: '呼出坐席统计报表',
+          parent: 'callManager'
+        }
+      },
+      // 呼出坐席管理
+
+      callSeat: {
+        path: '/market/callSeat',
+        meta: {
+          title: '呼出坐席管理',
+          parent: 'callManager'
+        }
+      },
+      taskDetailEmployee: {
+        path: '/market/employee/taskDetail/:id/:staffId',
+        meta: {
+          title: '呼叫列表',
+          parent: 'callEmployee'
+        }
+      },
+      taskAssigned: {
+        path: '/market/taskAssigned/:categoryId/:type',
+        meta: {
+          title: '潜在用户任务',
+          parent: 'callManager'
+        }
+      },
+      calling: {
+        path: '/market/calling/:id',
+        meta: {
+          title: '拨打电话'
+        }
+      },
+      // 潜在客户管理
+      potentialCustomer: {
+        // path: '/customer/potential/',
+        path: '/customer/potential',
+        meta: {
+          title: '潜在用户管理'
+        }
+      },
+      orderIntent: {
+        path: '/purchase/management/',
+        meta: {
+          title: '供采管理'
+        }
+      },
+      // 权限管理
+
+      roleoper: {
+        path: '/roleoper',
+        meta: {
+          title: '员工角色授权'
+        }
+      },
+      // 角色管理
+
+      roleManage: {
+        path: '/rolemanage',
+        meta: {
+          title: '员工角色管理'
+        }
+      },
+      // 供应管理
+
+      supplyManage: {
+        // path: '/supply/manage?:id&:supplyId',
+        path: '/supply/manage',
+        meta: {
+          title: '供应管理'
+        }
+      },
+      // 销地管理
+
+      marketShortComment: {
+        path: '/marketShortComment',
+        meta: {
+          title: '销地行情短评管理'
+        }
+      },
+      // 交易管理
+
+      tradeManage: {
+        // path: '/trade/orderlist?:id?:orderId?:supplyId?:activityId',
+        path: '/trade/orderlist',
+        meta: {
+          title: '订单任务管理'
+        }
+      },
+      // 排班计划
+
+      tradeScheduling: {
+        // path: '/trade/schedulinglist/:name/?:accountId',
+        path: '/trade/schedulinglist/:name',
+        meta: {
+          title: '排班计划'
+        }
+      },
+      // 临时会员注册
+
+      memberActivateTmp: {
+        path: '/temporary/vip',
+        meta: {
+          title: '临时会员激活'
+        }
+      },
+      // 会员管理
+
+      memberManage: {
+        // path: '/vip?warningId=:reasonId&orderId=:orderid',
+        path: '/vip',
+        meta: {
+          title: '特权商城-订单'
+        }
+      },
+      // 会员详情
+
+      memberDetail: {
+        // path: '/vip/detail?:id&:customerId',
+        path: '/vip/detail',
+        meta: {
+          title: '会员详情'
+        }
+      },
+      // 升级会员计算器
+
+      vipCalc: {
+        path: '/vipcalc',
+        meta: {
+          title: '升级钻石会员差价计算器'
+        }
+      },
+      // 一亩田官方发言人
+
+      speek: {
+        path: '/speek',
+        meta: {
+          title: '一亩田官方发言人'
+        }
+      },
+      // 一亩田110
+
+      YMT110: {
+        path: '/warning/110',
+        meta: {
+          title: '一亩田110'
+        }
+      },
+      // ymtShops
+
+      ymtShops: {
+        path: '/ymt_shops',
+        meta: {
+          title: '一亩田商户之家'
+        }
+      },
+      // 一亩田官方活动
+
+      activity: {
+        path: '/warning/activity',
+        meta: {
+          title: '一亩田官方活动'
+        }
+      },
+      // 会员详情
+
+      chat: {
+        path: '/talk/manage',
+        meta: {
+          title: '客服聊一聊'
+        }
+      },
+      // 行情小助手
+
+      hq: {
+        path: '/talk/hq',
+        meta: {
+          title: '行情小助手'
+        }
+      },
+      // 茶叶客户服务
+
+      ymtMallTea: {
+        path: '/talk/tea',
+        meta: {
+          title: '优选商城-田小二(参茸茶)聊一聊'
+        }
+      },
+      // 茶叶客户服务
+
+      ymtMallNut: {
+        path: '/talk/nut',
+        meta: {
+          title: '优选商城-田小二(干果炒货)聊一聊'
+        }
+      },
+      // 茶叶客户服务
+
+      ymtMallCondiment: {
+        path: '/talk/condiment',
+        meta: {
+          title: '优选商城-田小二(调味品)聊一聊'
+        }
+      },
+      // 茶叶客户服务
+
+      ymtMallFungus: {
+        path: '/talk/fungus',
+        meta: {
+          title: '优选商城-田小二(干菌菜)聊一聊'
+        }
+      },
+      // 商标助手
+
+      trademarkMedia: {
+        path: '/trademark/media',
+        meta: {
+          title: '商标助手'
+        }
+      },
+      // 农资认证
+
+      verify_nongzi: {
+        path: '/auth/nongzi',
+        meta: {
+          title: '农资认证'
+        }
+      },
+      // 视频认证(强实名认证)
+
+      verify_video: {
+        path: '/auth/video',
+        meta: {
+          title: '视频认证'
+        }
+      },
+      // 实力展示
+
+      strengthAudit: {
+        path: '/auth/introduce',
+        meta: {
+          title: '实力展示审核'
+        }
+      },
+      // 头像认证
+
+      portraitauth: {
+        path: '/auth/portrait',
+        meta: {
+          title: '头像认证审核'
+        }
+      },
+      // 通用图片认证
+
+      imageauth: {
+        path: '/auth/image',
+        meta: {
+          title: '图片认证审核'
+        }
+      },
+      // 种植信息
+
+      plantInfo: {
+        path: '/auth/plantinfo',
+        meta: {
+          title: '主营品类－种植信息'
+        }
+      },
+      // 供应能力
+
+      supplyCapacity: {
+        path: '/auth/supplycapacity',
+        meta: {
+          title: '主营品类－供应能力'
+        }
+      },
+      // 采购商认证审核
+
+      purchaser: {
+        path: '/auth/purchaser',
+        meta: {
+          title: '采购商认证审核'
+        }
+      },
+      // 服务能力审核
+
+      serviceCapacity: {
+        path: '/auth/serviceCapacity',
+        meta: {
+          title: '服务能力审核'
+        }
+      },
+      // 评论审核
+
+      dynComment: {
+        path: '/auth/dyncomment',
+        meta: {
+          title: '评论审核'
+        }
+      },
+      // 经纪人认证
+
+      agent: {
+        path: '/auth/agent',
+        meta: {
+          title: '经纪人认证'
+        }
+      },
+      // 一亩田公号审核
+
+      ymtAccount: {
+        path: '/auth/account',
+        meta: {
+          title: '一亩田公号审核'
+        }
+      },
+      // 货品资质审核
+
+      goodsAuth: {
+        path: '/auth/goods',
+        meta: {
+          title: '货品资质审核'
+        }
+      },
+      // 导入投诉
+
+      complaint: {
+        path: '/complaint',
+        meta: {
+          parent: 'complaintManage',
+          title: '录入，修改投诉'
+        }
+      },
+      // 投诉管理
+
+      complaintManage: {
+        path: '/complaint/manage',
+        meta: {
+          title: '投诉管理'
+        }
+      },
+      // 投诉详情
+
+      complaintDetail: {
+        path: '/complaint/detail/:id',
+        meta: {
+          title: '投诉详情'
+        }
+      },
+      // 用户信息，雷达图
+
+      uc: {
+        // path: '/uc?:id',
+        path: '/uc',
+        meta: {
+          title: '用户信息'
+        }
+      },
+      // 名片管理
+
+      businessCard: {
+        path: '/business',
+        meta: {
+          title: '客户名片列表'
+        }
+      },
+      // 采购管理
+
+      purchase: {
+        path: '/purchase',
+        meta: {
+          title: '采购管理'
+        }
+      },
+      // 采购管理
+
+      purchaseDetail: {
+        path: '/purchase/detail/:id',
+        meta: {
+          title: '采购单详情'
+        }
+      },
+      // 通用功能
+
+      tool: {
+        path: '/tool',
+        meta: {
+          title: '工具'
+        }
+      },
+      // 周期性运营管理
+
+      operate: {
+        path: '/operate',
+        meta: {
+          title: '周期性运营管理'
+        }
+      },
+      // 用户关系
+
+      relationship: {
+        // path: '/relationship?:userId1&:userId2&searchBy',
+        path: '/relationship',
+        meta: {
+          title: '用户关系'
+        }
+      },
+      // 评价列表管理
+
+      evaluate: {
+        path: '/trade_evaluate',
+        meta: {
+          title: '交易评价'
+        }
+      },
+      // 资源管理
+
+      sourceManage: {
+        path: '/sourcemanage',
+        meta: {
+          title: '资源管理'
+        }
+      },
+      // 开屏广告管理
+
+      adManage: {
+        path: '/admanage',
+        meta: {
+          title: 'APP广告管理'
+        }
+      },
+      // 开屏广告管理
+
+      spreadManage: {
+        path: '/spread',
+        meta: {
+          title: '开屏广告管理'
+        }
+      },
+      // 横幅广告
+
+      adBanner: {
+        path: '/spread/banner',
+        meta: {
+          title: '横幅广告'
+        }
+      },
+      // 生意圈广告
+
+      dynAdList: {
+        path: '/spread/dynAdList',
+        meta: {
+          title: '动态广告'
+        }
+      },
+      // 客户拜访记录
+
+      visitLog: {
+        path: '/visit',
+        meta: {
+          title: '客户拜访记录'
+        }
+      },
+      // 新增客户拜访记录
+
+      visitLogAdd: {
+        path: '/visit/add',
+        meta: {
+          title: '新增客户拜访记录',
+          parent: 'visitLog'
+        }
+      },
+      // 精准推广数据统计
+
+      auctionReport: {
+        path: '/auction/report',
+        meta: {
+          title: '精准推广数据统计',
+          parent: 'auctionManage'
+        }
+      },
+      // 热门动态运营
+
+      hotdyn: {
+        // path: '/hotdyn?:dynamicId&:progress',
+        path: '/hotdyn',
+        meta: {
+          title: '生意圈动态运营'
+        }
+      },
+      // 动态审核操作记录
+
+      hotdynLog: {
+        path: '/hotdyn/log',
+        meta: {
+          title: '操作历史',
+          parent: 'hotdyn'
+        }
+      },
+      // 动态审核操作记录
+
+      hotdynTopic: {
+        path: '/hotdyn/topic',
+        meta: {
+          title: '一亩田话题管理',
+          parent: 'hotdyn'
+        }
+      },
+      // 设置自动匹配关键字
+
+      automatch: {
+        path: '/automatch',
+        meta: {
+          title: '自动匹配关键字'
+        }
+      },
+      // 呼入坐席
+
+      virtualTel: {
+        path: '/virtualtel',
+        meta: {
+          title: '呼入坐席'
+        }
+      },
+      // 会员商场sku
+
+      storeSku: {
+        // path: '/store/sku?:spuId:spuName',
+        path: '/store/sku',
+        meta: {
+          title: 'sku列表'
+        }
+      },
+      // 会员商场创建新sku
+
+      storeAddSku: {
+        // path: '/store/sku/add?:skuId:type:spuId:spuName:merchant',
+        path: '/store/sku/add',
+        meta: {
+          title: '{{ navTxt }}'
+        }
+      },
+      // 会员商场spu
+
+      storespu: {
+        path: '/store/spu',
+        meta: {
+          title: '商城货品信息管理'
+        }
+      },
+      // 创建新的spu
+
+      spuadd: {
+        path: '/store/spu/:type/:spuId',
+        meta: {
+          title: '{{nav}}'
+        }
+      },
+      // 文章管理
+
+      article: {
+        path: '/article',
+        meta: {
+          title: '文章管理'
+        }
+      },
+      // 文章编辑
+
+      articleEdit: {
+        // path: '/article/edit?:id',
+        path: '/article/edit',
+        meta: {
+          title: '文章编辑',
+          parent: 'article'
+        }
+      },
+      // 会展用户管理
+
+      fair: {
+        path: '/fair',
+        meta: {
+          title: '会展用户管理'
+        }
+      },
+      // 会场活动列表
+
+      appActivity: {
+        path: '/sample/activity',
+        meta: {
+          title: '会场活动列表'
+        }
+      },
+      // 样品列表
+
+      sample: {
+        path: '/sample',
+        meta: {
+          title: '样品列表'
+        }
+      },
+      // 营销活动列表
+
+      promotion: {
+        path: '/promotion',
+        meta: {
+          title: '用户促销优惠管理'
+        }
+      },
+      // cms页面列表
+
+      cms: {
+        path: '/cms',
+        meta: {
+          title: 'CMS页面列表'
+        }
+      },
+      // cms页面数据
+
+      cmsData: {
+        // path: '/cms/data?:id',
+        path: '/cms/data',
+        meta: {
+          title: '{{pageTitle}}',
+          parent: 'cms'
+        }
+      },
+      // 赚钱宝
+
+      makeMoneyClue: {
+        path: '/make_money_clue',
+        meta: {
+          title: '赚钱宝'
+        }
+      },
+      // 行情状态
+
+      marketSituation: {
+        path: '/market_situation',
+        meta: {
+          title: '行情状态'
+        }
+      },
+      // 用户画像
+
+      userProfile: {
+        path: '/user_profile',
+        meta: {
+          title: '用户画像筛选'
+        }
+      },
+      // 用户画像导出
+
+      userProfileDownload: {
+        // path: '/user_profile/download?:id',
+        path: '/user_profile/download',
+        meta: {
+          title: '导出',
+          parent: 'userProfile'
+        }
+      },
+      // 用户打标签
+
+      userProfileTag: {
+        path: '/user_profile/tag',
+        meta: {
+          title: '打标签'
+        }
+      },
+      // 地销，电销负责人管理
+
+      salesManage: {
+        // path: '/salesmanage?:type',
+        path: '/salesmanage',
+        meta: {
+          title: '我的线索'
+        }
+      },
+
+      // 标签管理
+
+      userProfileTagList: {
+        path: '/user_profile/tag_list',
+        meta: {
+          title: '标签管理'
+        }
+      },
+      // 地销进驻计划
+
+      offlineClue: {
+        path: '/offline_clue',
+        meta: {
+          title: '地销进驻计划'
+        }
+      },
+      // 地销线索池
+
+      offlineClueManage: {
+        path: '/offline_clue/manage',
+        meta: {
+          title: '地销线索池'
+        }
+      },
+      // 线索管理员——线索管理界面
+
+      clueManage: {
+        // path: '/clue_manage?:id',
+        path: '/clue_manage',
+        meta: {
+          title: '电销线索分配'
+        }
+      },
+      // 线索管理员——线索管理界面
+
+      clueManageTask: {
+        // path: '/clue_manage/task?:id',
+        path: '/clue_manage/task',
+        meta: {
+          title: '线索分配',
+          parent: 'clueManage'
+        }
+      },
+      // 赠送田币
+
+      ymtCoin: {
+        path: '/ymt_coin',
+        meta: {
+          title: '赠送田币及审核'
+        }
+      },
+      // 用户分组管理
+
+      userGroup: {
+        path: '/user_group',
+        meta: {
+          title: '用户分组管理'
+        }
+      },
+      // 客户信息汇总
+
+      customerInfo: {
+        // path: '/customer_info?:title:customer_id',
+        path: '/customer_info',
+        meta: {
+          title: '{{title}}'
+        }
+      },
+      addpurchase: {
+        // path: '/purchaseauth/add?:customer_id',
+        path: '/purchaseauth/add',
+        meta: {
+          title: '添加实地认证审核',
+          parent: 'purchaseauth'
+        }
+      },
+      purchasedetail: {
+        // path: '/purchaseauth/detail/:id?:customer_id',
+        path: '/purchaseauth/detail/:id',
+        meta: {
+          title: '修改实地认证审核',
+          parent: 'purchaseauth'
+        }
+      },
+      miniappQrcode: {
+        // path: '/miniapp_qrcode/create?:show_more:app_key',
+        path: '/miniapp_qrcode/create',
+        meta: {
+          title: '生成小程序码'
+        }
+      },
+      // 用户间评价管理
+
+      usercomment: {
+        path: '/user_comment/commentlist',
+        meta: {
+          title: '客户评价审核'
+        }
+      },
+      // 一亩田优选基地
+
+      ymtOptimization: {
+        path: '/ymt_optimization/optimization',
+        meta: {
+          title: '优选基地'
+        }
+      },
+      ymtOptimizationDetail: {
+        // path: '/ymt_optimization/optimizationDetail/?:id',
+        path: '/ymt_optimization/optimizationDetail',
+        meta: {
+          title: '优选基地操作',
+          parent: 'ymtOptimization'
+        }
+      },
+      ymtOptimizationBase: {
+        // path: '/ymt_optimization/optimizationBase/?:id/?:customerId',
+        path: '/ymt_optimization/optimizationBase',
+        meta: {
+          title: '优选基地种植方案',
+          parent: 'ymtOptimization'
+        }
+      },
+      // 商户管理
+
+      attractInvestment: {
+        path: '/attract_investment/attractInvestment',
+        meta: {
+          title: '商城招商管理'
+        }
+      },
+      // 种植日记
+
+      cropRecord: {
+        path: '/crop_record/list',
+        meta: {
+          title: '种植日记'
+        }
+      },
+      // 一亩田 自营商城
+
+      ymtMall: {
+        path: '/ymt_mall/ymtMall',
+        meta: {
+          title: '商城货品sku管理'
+        }
+      },
+      // 一亩田 退款
+
+      refund: {
+        path: '/refund/list',
+        meta: {
+          title: '人工退款打款管理'
+        }
+      },
+      // 优选商城 三期自定义标签
+
+      mallTag: {
+        path: '/ymt_label/label',
+        meta: {
+          title: '分类标签管理'
+        }
+      },
+      // 拼车
+
+      pinTruck: {
+        path: '/pinTruck',
+        meta: {
+          title: '拼车团活动方案列表'
+        }
+      },
+      // 拼车母单列表
+
+      mainOrder: {
+        path: '/mainOrder',
+        meta: {
+          title: '拼车团母单列表'
+        }
+      },
+      // 货车车次管理
+
+      truck: {
+        path: '/vechicleTrips',
+        meta: {
+          title: '货车车次管理'
+        }
+      },
+      // 一亩田 图片医生
+
+      picture_doctor: {
+        path: '/pictureDoctor',
+        meta: {
+          title: '图片医生'
+        }
+      },
+      // 生成对账信息
+
+      supplierManagement: {
+        // path: '/supplierManagement?:id',
+        path: '/supplierManagement',
+        meta: {
+          title: '商城供应商对账管理'
+        }
+      },
+      antistopManagement: {
+        path: '/antistopManagement',
+        meta: {
+          title: '搜索类目引导关键词管理'
+        }
+      },
+      classGuidanceManagement: {
+        // path: '/classGuidanceManagement?:id',
+        path: '/classGuidanceManagement',
+        meta: {
+          title: '集市前端类目定义'
+        }
+      },
+      classGuidanceDetail: {
+        // path: '/classGuidanceDetail?:id?:busType?:guideScope',
+        path: '/classGuidanceDetail',
+        meta: {
+          title: '详情'
+          // parent: 'classGuidanceManagement'
+        }
+      },
+      wechatAccount: {
+        path: '/wechat_account',
+        meta: {
+          title: '员工微信管理'
+        }
+      },
+      // 活动SKU管理管理
+
+      promoteSKUManage: {
+        path: '/promoteSKUManage',
+        meta: {
+          title: '活动SKU管理列表'
+        }
+      },
+      // 拼车团 线路点位置管理
+
+      pinAddrManage: {
+        path: '/pinAddrManage',
+        meta: {
+          title: '拼车团线路点位管理'
+        }
+      },
+      authShop: {
+        path: '/auth/shop',
+        meta: {
+          title: '实体店入驻审核'
+        }
+      },
+      // 品牌审核
+
+      authBrand: {
+        path: '/auth/brand',
+        meta: {
+          title: '品牌审核'
+        }
+      },
+      // 企业审核（新）
+
+      businessAuth: {
+        path: '/auth/business',
+        meta: {
+          title: '企业认证审核(新)'
+        }
+      },
+      // 推送审核
+
+      pushAd: {
+        path: '/pushAd',
+        meta: {
+          title: '寻客宝审核'
+        }
+      },
+
+      salesMgmtService: {
+        path: '/userService',
+        meta: {
+          title: '销售增值服务线索池'
+        }
+      },
+      // 集市活动管理
+
+      marketActivityMgr: {
+        path: '/marketActivityMgr',
+        meta: {
+          title: '集市活动管理'
+        }
+      },
+      // 供应质检管理
+
+      quality_inspection: {
+        // path: '/quality_inspection?:supplyId',
+        path: '/quality_inspection',
+        meta: {
+          title: '供应质检管理'
+        }
+      },
+      // 促销活动
+
+      marketingPromotion: {
+        // path: '/marketingPromotion?:activityId:salesType',
+        path: '/marketingPromotion',
+        meta: {
+          title: '促销商品列表'
+        }
+      },
+      marketingAct: {
+        // path: '/marketingAct?:id',
+        path: '/marketingAct',
+        meta: {
+          title: '运营活动'
+        }
+      },
+      // 优惠券管理
+
+      couponMgr: {
+        path: '/coupon_mgr',
+        meta: {
+          title: '优选商城优惠券管理'
+        }
+      },
+      // 个性优惠券发放列表
+
+      couponPersoanl: {
+        path: '/couponList',
+        meta: {
+          title: '优惠券大礼包管理'
+        }
+      },
+      // 优惠券领取/发放列表
+
+      couponRecord: {
+        // path: '/coupon_draw?:id:customerId:crmId',
+        path: '/coupon_draw',
+        meta: {
+          title: '优惠券领取/发放记录'
+        }
+      },
+      // 代卖方案管理
+
+      agencysellPlan: {
+        path: '/agencysellPlan',
+        meta: {
+          title: '代卖方案管理-货主预结算'
+        }
+      },
+      ownerPayRecord: {
+        path: '/ownerPayRecord',
+        meta: {
+          title: '货主付费记录'
+        }
+      },
+      agencysellPlanDetail: {
+        // path: '/agencysellPlanDetail?:id',
+        path: '/agencysellPlanDetail',
+        meta: {
+          title: '代卖方案详情'
+        }
+      },
+      agencysell: {
+        // path: '/agencysell?:cid',
+        path: '/agencysell',
+        meta: {
+          title: '代卖管理'
+        }
+      },
+      merchandiser: {
+        path: '/merchandiser',
+        meta: {
+          title: '业务员管理'
+        }
+      },
+      // 货主管理
+
+      shipperManage: {
+        path: '/shipperManage',
+        meta: {
+          title: '货主管理'
+        }
+      },
+      // 货主跟进日志
+
+      shipperFollowLog: {
+        // path: '/shipperFollowLog?:customerId',
+        path: '/shipperFollowLog',
+        meta: {
+          title: '货主跟进日志'
+        }
+      },
+      // 结算贷款
+
+      settleLoans: {
+        path: '/settleLoans',
+        meta: {
+          title: '代卖方案管理-货主结算'
+        }
+      },
+      // 投票统计
+
+      toupiao: {
+        path: '/toupiao',
+        meta: {
+          title: '投票统计'
+        }
+      },
+
+      // CRM 销售案例管理
+
+      salesCaseMgr: {
+        path: '/case',
+        meta: {
+          title: 'CRM销售案例管理'
+        }
+      },
+      // 秒杀
+
+      seckillArea: {
+        path: '/seckillArea',
+        meta: {
+          title: '秒杀管理'
+        }
+      },
+      // 备付金充值
+
+      excessReserve: {
+        path: '/excessReserve',
+        meta: {
+          title: '备付金充值'
+        }
+      },
+      // 货源管理
+
+      supplierDemand: {
+        // path: '/supplierDemand?:customerId',
+        path: '/supplierDemand',
+        meta: {
+          title: '货源管理'
+        }
+      },
+      // 货品标准库
+
+      cargoStandard: {
+        path: '/cargoStandard',
+        meta: {
+          title: '货品标准表'
+        }
+      },
+      //  货源需求库
+
+      marketDemand: {
+        path: '/marketDemand',
+        meta: {
+          title: '货源需求库'
+        }
+      },
+      // 推广明细
+
+      customerPopularize: {
+        // path: '/customerPopularize?:customerId',
+        path: '/customerPopularize',
+        meta: {
+          title: '竞价推广明细'
+        }
+      },
+      // CRM限权处罚管理
+
+      privilegeBan: {
+        path: '/punish',
+        meta: {
+          title: '用户权限处罚管理'
+        }
+      },
+
+      // 卖家运营管理
+
+      sellerOperation: {
+        path: '/operateSeller',
+        meta: {
+          title: '卖家运营管理'
+        }
+      },
+      // 农课管理
+
+      nongke: {
+        path: '/nongke',
+        meta: {
+          title: '农课管理'
+        }
+      },
+      // 教学大纲
+
+      nongkeLessons: {
+        // path: '/nongkeLessons?:id',
+        path: '/nongkeLessons',
+        meta: {
+          title: '编辑教学大纲',
+          parent: 'nongke'
+        }
+      },
+      // 市场列表
+
+      marketList: {
+        path: '/marketList',
+        meta: {
+          title: '市场管理'
+        }
+      },
+      // 交易积分记录
+
+      intergalVary: {
+        path: '/integralDeal',
+        meta: {
+          title: '交易积分记录'
+        }
+      },
+      salesRecommend: {
+        path: '/salesRecommend',
+        meta: {
+          title: 'CRM客户线索推荐'
+        }
+      },
+      popup: {
+        // path: '/popup?:id',
+        path: '/popup',
+        meta: {
+          title: 'APP弹窗任务管理'
+        }
+      },
+      sticky: {
+        path: '/sticky/list',
+        meta: {
+          title: '置顶推广管理'
+        }
+      },
+      // 店铺信息管理
+
+      eshopAuth: {
+        path: '/auth/eshopAuth',
+        meta: {
+          title: '店铺信息管理'
+        }
+      },
+      // CRM通话历史查看
+
+      callHistList: {
+        path: '/telRecord',
+        meta: {
+          title: 'CRM通话历史查看'
+        }
+      },
+      // 致富经
+
+      getRich: {
+        path: '/getRich',
+        meta: {
+          title: '致富经'
+        }
+      },
+      depositMgr: {
+        path: '/bail',
+        meta: {
+          title: '担保金扣除审核'
+        }
+      },
+
+      dictManage: {
+        path: '/dictManage',
+        meta: {
+          title: '字典管理'
+        }
+      },
+
+      buyerOptManage: {
+        path: '/buyerOptManage',
+        meta: {
+          title: '买家运营管理'
+        }
+      },
+
+      // 类目管理
+      categoryMapping: {
+        path: '/category_mapping',
+        meta: {
+          title: '前端类目映射'
+        }
+      },
+      // 图标管理服务
+      badgeManage: {
+        path: '/badgeManage',
+        meta: {
+          title: 'App图标管理'
+        }
+      },
+      // 代理商管理
+      agentLeads: {
+        path: '/agentLeads',
+        meta: {
+          title: '代理商信息'
+        }
+      },
+      // 买家查询
+      buyerRadar: {
+        path: '/buyerRadar',
+        meta: {
+          title: '买家查询'
+        }
+      },
+      // 买家管理
+      buyerManage: {
+        path: '/buyerManage',
+        meta: {
+          title: '买家管理'
+        }
+      },
+      // 买家信息
+      buyerInfo: {
+        // path: '/buyerInfo?:cId',
+        path: '/buyerInfo',
+        meta: {
+          title: '买家详情'
+        }
+      },
+      salesManager: {
+        path: '/salesManager',
+        meta: {
+          title: '销售管理人员管理'
+        }
+      },
+      // (豆牛)目标车次管理
+      carNumber: {
+        path: '/carNumber',
+        meta: {
+          title: '目标车次管理'
+        }
+      },
+      // (豆牛)违规订单管理
+      outOrder: {
+        path: '/outOrder',
+        meta: {
+          title: '违规订单管理'
+        }
+      },
+      // 套餐管理
+      combo: {
+        path: '/combo',
+        meta: {
+          title: '套餐管理'
+        }
+      },
+      adPostion: {
+        path: '/adpos',
+        meta: {
+          title: 'APP广告位管理'
+        }
+      },
+      adEffect: {
+        path: '/adeffect',
+        meta: {
+          title: 'APP广告效果管理'
+        }
+      },
+      adMaterial: {
+        path: '/admaterial',
+        meta: {
+          title: 'APP广告物料管理'
+        }
+      },
+      doveProduct: {
+        path: '/doveProduct',
+        meta: {
+          title: '飞鸽品类报价管理'
+        }
+      },
+      userConsume: {
+        path: '/userConsume',
+        meta: {
+          title: '销售增值服务线索池'
+        }
+      }
+    }
+  for (var key in routers) {
+    let path = '#' + routers[key].path
+    if (!doniu.includes(path)) {
+      console.log(path)
+    }
+  }
+  </script>
+</body>
+</html>
+
